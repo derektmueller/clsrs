@@ -48,6 +48,9 @@ if (command.h || !command.use) {
 var deckFile = command.use;
 var now = +new Date ();
 
+/*
+Use deck
+*/
 fs.readFile (deckFile, function (err, data) {
     if (err) throw err;
     var deck = JSON.parse (data);
@@ -56,8 +59,8 @@ fs.readFile (deckFile, function (err, data) {
     constants.DEBUG && console.log ('deck = ');
     constants.DEBUG && console.log (deck);
     var deck = deck.filter (function (elem) {
-       console.log ('now - elem.lastAsked = ');
-       console.log (now - elem.lastAsked);
+       constants.DEBUG && console.log ('now - elem.lastAsked = ');
+       constants.DEBUG && console.log (now - elem.lastAsked);
         if (now - elem.lastAsked > boxConfig[elem.box]) 
             return true;
         else
