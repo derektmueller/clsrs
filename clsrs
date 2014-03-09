@@ -1,12 +1,25 @@
 #!/usr/bin/node
 
 var fs = require ('fs');
-var prompt = require ('prompt');
-prompt.message = '';
-prompt.delimiter = '';
+var constants = require ('./constants');
+var boxConfig = require ('./boxConfig');
+
+constants.DEBUG && console.log ('constants= ');
+constants.DEBUG && console.log (constants);
+
+constants.DEBUG && console.log ('constants= ');
+constants.DEBUG && console.log (boxConfig);
+
+// config interactive prompt
+var prompt = (function () {
+    var prompt = require ('prompt');
+    prompt.message = '';
+    prompt.delimiter = '';
+    return prompt;
+}) ();
 
 // config command line parser
-var commandLine = (function (that) {
+var commandLine = (function () {
     var CommandLine = require ('node-commandline').CommandLine;
     var commandLine = new CommandLine (process.argv[1].match (/\w+$/));
     commandLine.addArgument ('h'); // help flag
@@ -15,57 +28,82 @@ var commandLine = (function (that) {
         sequenced: true
     });
     return commandLine;
-}) (this);
+}) ();
 
 // parse command line options
 try {
     var command = commandLine.parse.apply (commandLine, process.argv);
 } catch (e) {
-    console.log ('Usage: ' + commandLine.toString ());
+    constants.DEBUG && console.log ('Usage: ' + commandLine.toString ());
 }
 
-console.log ('command = ');
-console.log (command);
+constants.DEBUG && console.log ('command = ');
+constants.DEBUG && console.log (command);
 
 if (command.h || !command.use) {
-    console.log ('Usage: ' + commandLine.toString ());
+    constants.DEBUG && console.log ('Usage: ' + commandLine.toString ());
     process.exit ();
 }
 
 var deckFile = command.use;
+var now = +new Date ();
 
 fs.readFile (deckFile, function (err, data) {
     if (err) throw err;
     var deck = JSON.parse (data);
+    var newDeck = [];
+
+    constants.DEBUG && console.log ('deck = ');
+    constants.DEBUG && console.log (deck);
+    var deck = deck.filter (function (elem) {
+       console.log ('now - elem.lastAsked = ');
+       console.log (now - elem.lastAsked);
+        if (now - elem.lastAsked > boxConfig[elem.box]) 
+            return true;
+        else
+            newDeck.push (elem);
+    });
 
     prompt.start ();
 
+    // cycle through deck 
     var getAnswer = function getAnswer (cards, response) {
-        console.log ('response = ');
-        console.log (response);
-        if (response) {
-            if (response === cards[0].a) {
-                console.log ('Correct');
+        constants.DEBUG && console.log ('response = ');
+        constants.DEBUG && console.log (response);
+        if (response) { // check response
+            var card = cards[0];
+            if (response == card.a) {
+                /**/console.log ('Correct');
+                card.box++;
             } else {
-                console.log (
+                /**/console.log (
                     'Incorrect \n' +
                     'The correct answer is ' + cards[0].a + '\n'
                 );
+                card.box = 0;
             }
+            card.lastAsked = +new Date ();
+            newDeck.push (card);
             cards = cards.slice (1);
-            if (!cards.length) return;
         }
-        var q = cards[0].q;
-        console.log (q);
+
+        if (!cards.length) { // finished deck
+            constants.DEBUG && console.log (newDeck);
+            /**/console.log ('Deck complete\n');
+            fs.writeFile (deckFile, JSON.stringify (newDeck));
+            return;
+        }
+
+        var q = cards[0].q; // ask question
+        /**/console.log (q);
         prompt.get ([ { name: 'answer' } ], function (err, response) {
             getAnswer (cards, response.answer);
         });
     };
 
-    console.log ('deck = ');
-    console.log (deck);
+    constants.DEBUG && console.log ('deck = ');
+    constants.DEBUG && console.log (deck);
     getAnswer (deck);
-
 });
 
 
