@@ -4,6 +4,21 @@ node server
 decks stored as JSON
 
 /***********************************************************************
+* ideas 
+***********************************************************************/
+mobile web interface
+
+more command line tools:
+    create new deck
+    add card to existing deck
+    view deck
+
+email dropbox to email cards to deck
+
+save deck versions in git repository
+    host repo on github/bitbucket
+
+/***********************************************************************
 * command line interface 
 ***********************************************************************/
 
