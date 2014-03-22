@@ -4,7 +4,7 @@
  */
 
 var auxlib = require ('./auxlib');
-var auxlib = require ('./contants');
+var constants = require ('./constants');
 
 var commandLineParser = (function () {
 
@@ -20,16 +20,17 @@ function CommandLineParser (argsDict) {
 CommandLineParser.prototype.parse = function () {
     // parse command line options
     try {
-        var command = commandLine.parse.apply (commandLine, process.argv);
+        var command = this._commandLine.parse.apply (
+            this._commandLine, process.argv);
     } catch (e) {
-        /**/console.log ('Usage: ' + commandLine.toString ());
+        /**/console.log ('Usage: ' + this._commandLine.toString ());
     }
 
     constants.DEBUG && console.log ('command = ');
     constants.DEBUG && console.log (command);
 
     if (command.h || !command.use) {
-        /**/console.log ('Usage: ' + commandLine.toString ());
+        /**/console.log ('Usage: ' + this._commandLine.toString ());
         process.exit ();
     }
 

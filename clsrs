@@ -8,10 +8,21 @@ var gitConfig = require ('./gitConfig');
 var prompt = require ('./prompt');
 var exec = require ('child_process').exec;
 
-constants.DEBUG && console.log ('constants= ');
+var menu = (function () {
+    return {
+        display: function () {
+            console.log (
+                'q - quit\n' +
+                'w - save\n'
+            );
+        }
+    }
+}) ();
+
+constants.DEBUG && console.log ('constants = ');
 constants.DEBUG && console.log (constants);
 
-constants.DEBUG && console.log ('constants= ');
+constants.DEBUG && console.log ('boxConfig = ');
 constants.DEBUG && console.log (boxConfig);
 
 var command = commandLineParser.parse ();
