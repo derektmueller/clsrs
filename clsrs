@@ -3,20 +3,13 @@
 var fs = require ('fs');
 var constants = require ('./constants');
 var boxConfig = require ('./boxConfig');
+var prompt = require ('./prompt');
 
 constants.DEBUG && console.log ('constants= ');
 constants.DEBUG && console.log (constants);
 
 constants.DEBUG && console.log ('constants= ');
 constants.DEBUG && console.log (boxConfig);
-
-// config interactive prompt
-var prompt = (function () {
-    var prompt = require ('prompt');
-    prompt.message = '';
-    prompt.delimiter = '';
-    return prompt;
-}) ();
 
 // config command line parser
 var commandLine = (function () {
