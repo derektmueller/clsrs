@@ -34,14 +34,14 @@ var commandLine = (function () {
 try {
     var command = commandLine.parse.apply (commandLine, process.argv);
 } catch (e) {
-    constants.DEBUG && console.log ('Usage: ' + commandLine.toString ());
+    /**/console.log ('Usage: ' + commandLine.toString ());
 }
 
 constants.DEBUG && console.log ('command = ');
 constants.DEBUG && console.log (command);
 
 if (command.h || !command.use) {
-    constants.DEBUG && console.log ('Usage: ' + commandLine.toString ());
+    /**/console.log ('Usage: ' + commandLine.toString ());
     process.exit ();
 }
 
@@ -58,6 +58,7 @@ fs.readFile (deckFile, function (err, data) {
 
     constants.DEBUG && console.log ('deck = ');
     constants.DEBUG && console.log (deck);
+    // filter out cards that aren't ready to be read
     var deck = deck.filter (function (elem) {
        constants.DEBUG && console.log ('now - elem.lastAsked = ');
        constants.DEBUG && console.log (now - elem.lastAsked);
