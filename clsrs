@@ -3,6 +3,8 @@
 var fs = require ('fs');
 var constants = require ('./constants');
 var boxConfig = require ('./boxConfig');
+var commandLineParser = require ('./commandLineParser');
+var gitConfig = require ('./gitConfig');
 var prompt = require ('./prompt');
 var exec = require ('child_process').exec;
 
@@ -12,32 +14,10 @@ constants.DEBUG && console.log (constants);
 constants.DEBUG && console.log ('constants= ');
 constants.DEBUG && console.log (boxConfig);
 
-// config command line parser
-var commandLine = (function () {
-    var CommandLine = require ('node-commandline').CommandLine;
-    var commandLine = new CommandLine (process.argv[1].match (/\w+$/));
-    commandLine.addArgument ('h'); // help flag
-    commandLine.addArgument ('use', { // use deck
-        type: 'string',
-        sequenced: true
-    });
-    return commandLine;
-}) ();
-
-// parse command line options
-try {
-    var command = commandLine.parse.apply (commandLine, process.argv);
-} catch (e) {
-    /**/console.log ('Usage: ' + commandLine.toString ());
-}
+var command = commandLineParser.parse ();
 
 constants.DEBUG && console.log ('command = ');
 constants.DEBUG && console.log (command);
-
-if (command.h || !command.use) {
-    /**/console.log ('Usage: ' + commandLine.toString ());
-    process.exit ();
-}
 
 var deckFile = command.use;
 var now = +new Date ();
@@ -89,7 +69,7 @@ fs.readFile (deckFile, function (err, data) {
             constants.DEBUG && console.log (newDeck);
             /**/console.log ('Deck complete\n');
             fs.writeFile (deckFile, JSON.stringify (newDeck));
-            exec ('git commit -a -m "new deck version"');
+            exec ('git commit -a -m "new deck version" ' + deckFile);
             return;
         }
 
