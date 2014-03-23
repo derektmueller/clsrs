@@ -30,19 +30,20 @@ AddCards.prototype = Object.create (Command.prototype);
 AddCards.prototype.call = function (callback) {
     var that = this;  
     var deck = this.app.getCurrDeck ();
+    if (!deck) {
+        console.log ('No deck selected');
+        callback ();
+        return;
+    }
 
     prompt.start ();
     deck.start ();
-    (function cycleThroughDeck () {
-        if (deck.finished ()) {
-            console.log ('Deck complete\n');
-            callback ();
-            return;
-        }
-        deck.showNextCard ();
-        prompt.get ([ { name: 'answer' } ], function (err, response) {
-            deck.answerCard (response.answer);
-            cycleThroughDeck ();
+    (function getNewCards () {
+        prompt.get ([ { name: 'question' }, { name: 'answer' } ], 
+            function (err, response) {
+
+            console.log (response);
+            getNewCards ();
         });
     }) ();
 };
