@@ -22,13 +22,16 @@ Use.prototype = Object.create (Command.prototype);
  */
 Use.prototype.call = function (deckName, callback) {
     var that = this;  
-    fs.readFile ('./decks/' + deckName, function (err, data) {
+    var fileName = '../decks/' + deckName + '.json';
+    fs.readFile (fileName, function (err, data) {
         if (err) {
             auxlib.log (err);
             console.log ('invalid deck name');
         } else {
             var deck = new Deck ({
-                cards: JSON.parse (data)
+                cards: JSON.parse (data),
+                fileName: fileName,
+                name: deckName + '.json'
             });
             that.app.setCurrDeck (deck);
         }

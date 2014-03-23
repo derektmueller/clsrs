@@ -22,7 +22,7 @@ Show.prototype = Object.create (Command.prototype);
 Show.prototype.call = function (callback) {
     console.log ('call');
     var that = this;  
-    exec ('ls ./decks', function (err, stdout, stderr) {
+    exec ('ls ../decks', function (err, stdout, stderr) {
         console.log (stdout);
         Command.prototype.call.call (that, callback);
     });

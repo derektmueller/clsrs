@@ -17,6 +17,8 @@ function App (argsDict) {
     this._addCommand ('Use');
     this._addCommand ('Describe');
     this._addCommand ('Start');
+    this._addCommand ('Save');
+    this._addCommand ('AddCards');
     //this._addCommand ('Help');
     //this._addCommand ('Quit');
 
@@ -78,11 +80,15 @@ App.prototype._execCmmd = function (cmmd, callback) {
     } else {
         // command without argument
 
-        if (this._commands[cmmd].hasOwnProperty ('argument')) {
-            console.log ('command requires an argument');
+        if (this._commands[cmmd]) {
+            if (this._commands[cmmd].hasOwnProperty ('argument')) {
+                console.log ('command requires an argument');
+                callback ();
+            } else {
+                this._commands[cmmd].call (callback);
+            }
+        } else {
             callback ();
-        } else if (this._commands[cmmd]) {
-            this._commands[cmmd].call (callback);
         }
     } 
 };

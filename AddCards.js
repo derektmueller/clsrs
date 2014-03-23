@@ -10,9 +10,9 @@ var boxConfig = require ('./boxConfig');
 var prompt = require ('./prompt');
 var fs = require ('fs');
 
-var Start = (function () {
+var AddCards = (function () {
 
-function Start (argsDict) {
+function AddCards (argsDict) {
     Command.call (this, argsDict);
     var defaultPropsDict = {
     };
@@ -20,14 +20,14 @@ function Start (argsDict) {
     
 };
 
-Start.prototype = Object.create (Command.prototype);
+AddCards.prototype = Object.create (Command.prototype);
 
 
 /**
  * Call the command. Cycles through cards asking questions and accepting
  * user answers
  */
-Start.prototype.call = function (callback) {
+AddCards.prototype.call = function (callback) {
     var that = this;  
     var deck = this.app.getCurrDeck ();
 
@@ -47,9 +47,9 @@ Start.prototype.call = function (callback) {
     }) ();
 };
 
-return Start;
+return AddCards;
 
 }) ();
 
-module.exports = Start;
+module.exports = AddCards;
 

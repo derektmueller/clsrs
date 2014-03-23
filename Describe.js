@@ -23,8 +23,8 @@ Describe.prototype.call = function (callback) {
     if (!deck) {
         console.log ('No deck selected');
     }
-    for (var i in deck) {
-        console.log (deck[i]); 
+    for (var i in deck.cards) {
+        console.log (deck.cards[i]); 
     }
     callback ();
 };
