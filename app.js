@@ -15,6 +15,8 @@ function App (argsDict) {
     this._addCommand ('Show', 'show decks');
     //this._addCommand ('Delete');
     this._addCommand ('Use');
+    this._addCommand ('Describe');
+    this._addCommand ('Start');
     //this._addCommand ('Help');
     //this._addCommand ('Quit');
 
@@ -27,6 +29,10 @@ function App (argsDict) {
  */
 App.prototype.setCurrDeck = function (deck) {
     this._currentDeck = deck;
+};
+
+App.prototype.getCurrDeck = function (deck) {
+    return this._currentDeck;
 };
 
 /**

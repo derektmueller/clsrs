@@ -3,6 +3,7 @@
 var auxlib = require ('./auxlib');
 var Command = require ('./Command');
 var fs = require ('fs');
+var Deck = require ('./Deck');
 
 var Use = (function () {
 
@@ -17,7 +18,7 @@ function Use (argsDict) {
 Use.prototype = Object.create (Command.prototype);
 
 /**
- * Call the command
+ * Call the command. Reads from the deck file and sets the current deck
  */
 Use.prototype.call = function (deckName, callback) {
     var that = this;  
@@ -26,7 +27,9 @@ Use.prototype.call = function (deckName, callback) {
             auxlib.log (err);
             console.log ('invalid deck name');
         } else {
-            var deck = JSON.parse (data);
+            var deck = new Deck ({
+                cards: JSON.parse (data)
+            });
             that.app.setCurrDeck (deck);
         }
         Command.prototype.call.call (this, callback);
