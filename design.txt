@@ -1,3 +1,4 @@
+git --git-dir=/mycode/.git --work-tree=/mycode status
 
 node server 
 
@@ -23,6 +24,8 @@ save deck versions in git repository
 ***********************************************************************/
 
 arguments:
+    create
+    delete
     use
     save
     quit and save

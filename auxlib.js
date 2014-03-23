@@ -1,5 +1,5 @@
 
-
+var constants = require ('./constants');
 var auxlib = {};
 
 /**
@@ -19,6 +19,10 @@ auxlib.unpack = function (argsDict, defaultArgsDict) {
         }
     }
 }
+
+auxlib.log = function (message) {
+    if (constants.DEBUG) console.log (message);
+};
 
 module.exports = auxlib;
 

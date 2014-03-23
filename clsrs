@@ -3,23 +3,16 @@
 var fs = require ('fs');
 var constants = require ('./constants');
 var boxConfig = require ('./boxConfig');
-var commandLineParser = require ('./commandLineParser');
-var gitConfig = require ('./gitConfig');
-var prompt = require ('./prompt');
+//var commandLineParser = require ('./commandLineParser');
+//var gitConfig = require ('./gitConfig');
+//var prompt = require ('./prompt');
 var exec = require ('child_process').exec;
+//var auxlib = require ('./auxlib');
+var app = require ('./app');
 
-var menu = (function () {
-    return {
-        display: function () {
-            console.log (
-                'q - quit\n' +
-                'w - save\n'
-            );
-        }
-    }
-}) ();
+app.start ();
 
-constants.DEBUG && console.log ('constants = ');
+/*constants.DEBUG && console.log ('constants = ');
 constants.DEBUG && console.log (constants);
 
 constants.DEBUG && console.log ('boxConfig = ');
@@ -28,15 +21,17 @@ constants.DEBUG && console.log (boxConfig);
 var command = commandLineParser.parse ();
 
 constants.DEBUG && console.log ('command = ');
-constants.DEBUG && console.log (command);
+constants.DEBUG && console.log (command);*/
 
-var deckFile = command.use;
-var now = +new Date ();
+
+
+/*var deckFile = command.use;
+var now = +new Date ();*/
 
 /*
 Use deck
 */
-fs.readFile (deckFile, function (err, data) {
+/*fs.readFile (deckFile, function (err, data) {
     if (err) throw err;
     var deck = JSON.parse (data);
     var newDeck = [];
@@ -62,10 +57,10 @@ fs.readFile (deckFile, function (err, data) {
         if (response) { // check response
             var card = cards[0];
             if (response == card.a) {
-                /**/console.log ('Correct');
+                console.log ('Correct');
                 card.box++;
             } else {
-                /**/console.log (
+                console.log (
                     'Incorrect \n' +
                     'The correct answer is ' + cards[0].a + '\n'
                 );
@@ -78,14 +73,14 @@ fs.readFile (deckFile, function (err, data) {
 
         if (!cards.length) { // finished deck
             constants.DEBUG && console.log (newDeck);
-            /**/console.log ('Deck complete\n');
+            console.log ('Deck complete\n');
             fs.writeFile (deckFile, JSON.stringify (newDeck));
             exec ('git commit -a -m "new deck version" ' + deckFile);
             return;
         }
 
         var q = cards[0].q; // ask question
-        /**/console.log (q);
+        console.log (q);
         prompt.get ([ { name: 'answer' } ], function (err, response) {
             getAnswer (cards, response.answer);
         });
@@ -94,6 +89,6 @@ fs.readFile (deckFile, function (err, data) {
     constants.DEBUG && console.log ('deck = ');
     constants.DEBUG && console.log (deck);
     getAnswer (deck);
-});
+});*/
 
 
