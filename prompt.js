@@ -1,7 +1,7 @@
 
 // config interactive prompt
 var prompt = (function () {
-    var prompt = require ('prompt');
+    var prompt = require ('promptVim');
     prompt.message = '';
     prompt.delimiter = '';
     return prompt;

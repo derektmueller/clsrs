@@ -9,6 +9,7 @@ var Command = require ('./Command');
 var boxConfig = require ('./boxConfig');
 var prompt = require ('./prompt');
 var fs = require ('fs');
+var exec = require ('child_process').exec;
 
 var AddCards = (function () {
 
@@ -37,13 +38,36 @@ AddCards.prototype.call = function (callback) {
     }
 
     prompt.start ();
-    deck.start ();
+    // add cards until user enters 'done'
     (function getNewCards () {
-        prompt.get ([ { name: 'question' }, { name: 'answer' } ], 
-            function (err, response) {
-
-            console.log (response);
-            getNewCards ();
+        prompt.get ([ 
+            { 
+                name: 'question',
+                vim: true,
+            }, 
+        ], function (err, response) {
+            var q = response.question;
+            if (q === 'done') {
+                callback ();
+                return;
+            }
+            prompt.get ([
+            { 
+                name: 'answer',
+                vim: true
+            }, 
+            ], function (err, response) {
+                var a = response.answer;
+                if (a === 'done') {
+                    callback ();
+                    return;
+                }
+                if (q.length && a.length) {
+                    deck.addCard (q, a);
+                    console.log ('card added');
+                }
+                getNewCards ();
+            });
         });
     }) ();
 };

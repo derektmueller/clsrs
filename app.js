@@ -19,8 +19,8 @@ function App (argsDict) {
     this._addCommand ('Start');
     this._addCommand ('Save');
     this._addCommand ('AddCards');
+    this._addCommand ('Quit');
     //this._addCommand ('Help');
-    //this._addCommand ('Quit');
 
     auxlib.log (this._commands);
 }
@@ -76,6 +76,8 @@ App.prototype._execCmmd = function (cmmd, callback) {
         auxlib.log (argument);
         if (this._commands[cmmd]) {
             this._commands[cmmd].call (argument, callback);
+        } else {
+            callback ();
         }
     } else {
         // command without argument
@@ -102,7 +104,10 @@ App.prototype.start = function () {
     (function appLoop () {
         that._displayCmmds ();
         prompt.get ([ { name: 'command' } ], function (err, resp) {
-            that._execCmmd (resp.command, appLoop);
+            if (resp)
+                that._execCmmd (resp.command, appLoop);
+            else 
+                appLoop ();
         });
     }) ();
 };

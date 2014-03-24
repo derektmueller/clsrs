@@ -16,6 +16,7 @@ function Deck (argsDict) {
 
     auxlib.log (this);
 
+    this.unsavedChanges = false;
     this._currCard = 0;
     this._expiredCards = []; 
 };
@@ -34,6 +35,8 @@ Deck.prototype.start = function () {
         if (now - elem.lastAsked > boxConfig[elem.box]) 
             return true;
     });
+    auxlib.log ('start: _expiredCards = ');
+    auxlib.log (this._expiredCards);
 };
 
 /**
@@ -48,9 +51,25 @@ Deck.prototype.save = function (callback) {
                 that.name, 
                 function () {
                     console.log ('Deck saved');
+                    that.unsavedChanges = false;
                     callback (); 
                 });
         });
+};
+
+/**
+ * Adds a new card to the deck
+ * @param string question
+ * @param string answer
+ */
+Deck.prototype.addCard = function (question, answer) {
+    this.cards.push ({
+        q: question,
+        a: answer,
+        box: 0,
+        lastAsked: 0
+    });
+    this.unsavedChanges = true;
 };
 
 /**
@@ -77,7 +96,7 @@ Deck.prototype.reset = function () {
 
 Deck.prototype.answerCard = function (answer) {
     if (answer) { // check answer
-        var card = this._expiredCards[0];
+        var card = this._expiredCards[this._currCard];
         if (answer == card.a) {
             console.log ('Correct');
             card.box++;
@@ -89,8 +108,8 @@ Deck.prototype.answerCard = function (answer) {
             card.box = 0;
         }
         card.lastAsked = +new Date ();
-        this._expiredCards = this._expiredCards.slice (1);
     }
+    this.unsavedChanges = true;
     this._currCard++;
 };
 

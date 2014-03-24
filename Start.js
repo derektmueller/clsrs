@@ -41,6 +41,10 @@ Start.prototype.call = function (callback) {
         }
         deck.showNextCard ();
         prompt.get ([ { name: 'answer' } ], function (err, response) {
+            if (response.answer === 'done') {
+                callback ();
+                return;
+            }
             deck.answerCard (response.answer);
             cycleThroughDeck ();
         });
