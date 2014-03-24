@@ -51,6 +51,7 @@ AddCards.prototype.call = function (callback) {
                 callback ();
                 return;
             }
+            setTimeout (function () {
             prompt.get ([
             { 
                 name: 'answer',
@@ -68,6 +69,7 @@ AddCards.prototype.call = function (callback) {
                 }
                 getNewCards ();
             });
+            }, 700);
         });
     }) ();
 };

@@ -7,6 +7,18 @@ decks stored as JSON
 /***********************************************************************
 * ideas 
 ***********************************************************************/
+
+vimscipt idea:
+    once you've learned vimscript, write a script which, upon saving
+    the file, the file is appended to a temporary file and the current
+    file is reloaded with original contents
+
+    this will allow you to quickly create cards (without window flashes)
+    when you finally :q vim, the tempory file will be parsed, cards
+    will be generated, and then the tmp file will be unlinked
+
+
+
 mobile web interface
 
 more command line tools:
