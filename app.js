@@ -19,6 +19,7 @@ function App (argsDict) {
     this._addCommand ('Start');
     this._addCommand ('Save');
     this._addCommand ('AddCards');
+    this._addCommand ('Import');
     this._addCommand ('Quit');
     //this._addCommand ('Help');
 

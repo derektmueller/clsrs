@@ -43,7 +43,7 @@ AddCards.prototype.call = function (callback) {
         prompt.get ([ 
             { 
                 name: 'question',
-                vim: true,
+                //vim: true,
             }, 
         ], function (err, response) {
             var q = response.question;
@@ -51,11 +51,10 @@ AddCards.prototype.call = function (callback) {
                 callback ();
                 return;
             }
-            setTimeout (function () {
             prompt.get ([
             { 
                 name: 'answer',
-                vim: true
+                //vim: true
             }, 
             ], function (err, response) {
                 var a = response.answer;
@@ -69,7 +68,6 @@ AddCards.prototype.call = function (callback) {
                 }
                 getNewCards ();
             });
-            }, 700);
         });
     }) ();
 };
