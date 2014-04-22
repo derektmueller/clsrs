@@ -45,8 +45,17 @@ Start.prototype.call = function (callback) {
                 callback ();
                 return;
             }
-            deck.answerCard (response.answer);
-            cycleThroughDeck ();
+            deck.revealCard ();
+            prompt.get (
+                [ { 
+                    name: 'yesOrNo',
+                    description: 'correct?[y/n]',
+                    pattern: /^y|n$/
+                } ], function (err, response) {
+
+                deck.answerCard (response.yesOrNo);
+                cycleThroughDeck ();
+            });
         });
     }) ();
 };

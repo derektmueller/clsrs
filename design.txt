@@ -8,6 +8,8 @@ decks stored as JSON
 * ideas 
 ***********************************************************************/
 
+prevent creation of duplicate cards (on import and with card creation command)
+
 vimscipt idea:
     once you've learned vimscript, write a script which, upon saving
     the file, the file is appended to a temporary file and the current

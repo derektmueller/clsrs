@@ -94,7 +94,7 @@ Deck.prototype.reset = function () {
     this._currCard = 0;
 };
 
-Deck.prototype.answerCard = function (answer) {
+/*Deck.prototype.answerCard = function (answer) {
     if (answer) { // check answer
         var card = this._expiredCards[this._currCard];
         if (answer == card.a) {
@@ -109,6 +109,33 @@ Deck.prototype.answerCard = function (answer) {
         }
         card.lastAsked = +new Date ();
     }
+    this.unsavedChanges = true;
+    this._currCard++;
+};*/
+
+/**
+ * Shows the current card's answer
+ */
+Deck.prototype.revealCard = function () {
+    var card = this._expiredCards[this._currCard];
+    console.log (card.a);
+}
+
+/**
+ * Indicate whether answer to card is correct or incorrect and move the
+ * card into the appropriate box based on response
+ * @param string 'y'|'n'
+ */
+Deck.prototype.answerCard = function (yesOrNo) {
+    var card = this._expiredCards[this._currCard];
+    if (yesOrNo === 'y') {
+        console.log ('This card will be moved to the next box.');
+        card.box++;
+    } else {
+        console.log ('This card will be moved to the first box.');
+        card.box = 0;
+    }
+    card.lastAsked = +new Date ();
     this.unsavedChanges = true;
     this._currCard++;
 };
