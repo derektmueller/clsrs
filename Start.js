@@ -15,6 +15,7 @@ var Start = (function () {
 function Start (argsDict) {
     Command.call (this, argsDict);
     var defaultPropsDict = {
+        info: 'Start flipping through the currently selected deck.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
     
@@ -30,6 +31,11 @@ Start.prototype = Object.create (Command.prototype);
 Start.prototype.call = function (callback) {
     var that = this;  
     var deck = this.app.getCurrDeck ();
+    if (!deck) {
+        console.log ('no deck selected');
+        callback ();
+        return;
+    }
 
     prompt.start ();
     deck.start ();
@@ -41,18 +47,17 @@ Start.prototype.call = function (callback) {
         }
         deck.showNextCard ();
         prompt.get ([ { name: 'answer' } ], function (err, response) {
-            if (response.answer === 'done') {
-                callback ();
-                return;
-            }
             deck.revealCard ();
             prompt.get (
                 [ { 
                     name: 'yesOrNo',
-                    description: 'correct?[y/n]',
-                    pattern: /^y|n$/
+                    description: 'correct?[y/n/quit]',
+                    pattern: /^y|n|(q.*)$/
                 } ], function (err, response) {
-
+                if (response.yesOrNo.match (/q.*/)) {
+                    callback ();
+                    return;
+                }
                 deck.answerCard (response.yesOrNo);
                 cycleThroughDeck ();
             });

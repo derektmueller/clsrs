@@ -10,6 +10,7 @@ function Show (argsDict) {
     var argsDict = typeof argsDict === 'undefined' ? {} : argsDict; 
     Command.call (this, argsDict);
     var defaultPropsDict = {
+        info: 'Show a list of available decks.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
 };

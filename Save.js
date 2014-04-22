@@ -12,6 +12,7 @@ var Save = (function () {
 function Save (argsDict) {
     Command.call (this, argsDict);
     var defaultPropsDict = {
+        info: 'Save changes to the currently selected deck.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
     
@@ -28,7 +29,7 @@ Save.prototype.call = function (callback) {
     var deck = this.app.getCurrDeck ();
 
     if (!deck) {
-        auxlib.log ('no deck selected');
+        console.log ('no deck selected');
         callback ();
         return;
     }

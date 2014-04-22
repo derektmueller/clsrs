@@ -8,6 +8,7 @@ var Describe = (function () {
 function Describe (argsDict) {
     Command.call (this, argsDict);
     var defaultPropsDict = {
+        info: 'Show the cards in the currently selected deck.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
 };

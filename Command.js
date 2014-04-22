@@ -9,9 +9,14 @@ var Command = (function () {
 
 function Command (argsDict) {
     var defaultPropsDict = {
-        app: null // the app singleton
+        app: null, // the app singleton
+        info: '' // a description of the command
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
+};
+
+Command.prototype.getInfo = function () {
+    console.log (this.info);
 };
 
 /**

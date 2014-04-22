@@ -9,6 +9,7 @@ function Quit (argsDict) {
     var argsDict = typeof argsDict === 'undefined' ? {} : argsDict; 
     Command.call (this, argsDict);
     var defaultPropsDict = {
+        info: 'Quit the program.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
 };

@@ -10,7 +10,8 @@ var Import = (function () {
 function Import (argsDict) {
     Command.call (this, argsDict);
     var defaultPropsDict = {
-        argument: null
+        argument: null,
+        info: 'Import cards from a file to the currently selected deck.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
 };

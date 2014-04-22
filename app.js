@@ -15,6 +15,7 @@ function App (argsDict) {
     this._addCommand ('Show', 'show decks');
     //this._addCommand ('Delete');
     this._addCommand ('Use');
+    this._addCommand ('Help');
     this._addCommand ('Describe');
     this._addCommand ('Start');
     this._addCommand ('Save');
@@ -46,6 +47,10 @@ App.prototype._addCommand = function (command) {
     auxlib.log ('_addCommand');
     var Cmmd = require ('./' + command);
     this._commands[command.toLowerCase ()] = new Cmmd ({app: this});
+};
+
+App.prototype.getCommand = function (commandName) {
+    return this._commands[commandName];
 };
 
 /**

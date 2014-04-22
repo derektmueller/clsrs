@@ -10,7 +10,8 @@ var Use = (function () {
 function Use (argsDict) {
     Command.call (this, argsDict);
     var defaultPropsDict = {
-        argument: null
+        argument: null,
+        info: 'Select a deck to use.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
 };

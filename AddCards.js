@@ -16,6 +16,7 @@ var AddCards = (function () {
 function AddCards (argsDict) {
     Command.call (this, argsDict);
     var defaultPropsDict = {
+        info: 'Interactively add cards to the currently selected deck.'
     };
     auxlib.unpack.apply (this, [argsDict, defaultPropsDict]);
     
