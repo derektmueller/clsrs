@@ -49,6 +49,10 @@ App.prototype._addCommand = function (command) {
     this._commands[command.toLowerCase ()] = new Cmmd ({app: this});
 };
 
+/**
+ * Get command object with given name
+ * @param string commandName
+ */
 App.prototype.getCommand = function (commandName) {
     return this._commands[commandName];
 };
