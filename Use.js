@@ -4,6 +4,7 @@ var auxlib = require ('./auxlib');
 var Command = require ('./Command');
 var fs = require ('fs');
 var Deck = require ('./Deck');
+var gitConfig = require ('./gitConfig');
 
 var Use = (function () {
 
@@ -23,7 +24,7 @@ Use.prototype = Object.create (Command.prototype);
  */
 Use.prototype.call = function (deckName, callback) {
     var that = this;  
-    var fileName = '../decks/' + deckName + '.json';
+    var fileName = gitConfig.workTree + '/' + deckName + '.json';
     fs.readFile (fileName, function (err, data) {
         if (err) {
             auxlib.log (err);

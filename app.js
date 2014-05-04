@@ -22,7 +22,6 @@ function App (argsDict) {
     this._addCommand ('AddCards');
     this._addCommand ('Import');
     this._addCommand ('Quit');
-    //this._addCommand ('Help');
 
     auxlib.log (this._commands);
 }

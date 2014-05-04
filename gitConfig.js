@@ -1,6 +1,8 @@
 
-var gitDir = '/home/derek/programming/flashcards/decks/.git';
-var workTree = '/home/derek/programming/flashcards/decks';
+var gitConfig = {
+    gitDir: '/home/derekm/programming/flashcards/decks/.git',
+    workTree: '/home/derekm/programming/flashcards/decks'
+}
 
-module.exports = gitDir;
+module.exports = gitConfig;
 

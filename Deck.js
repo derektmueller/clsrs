@@ -3,6 +3,8 @@ var auxlib = require ('./auxlib');
 var boxConfig = require ('./boxConfig');
 var exec = require ('child_process').exec;
 var fs = require ('fs');
+var gitConfig = require ('./gitConfig');
+
 
 var Deck = (function () {
 
@@ -46,8 +48,8 @@ Deck.prototype.save = function (callback) {
     var that = this;
     fs.writeFile (this.fileName, JSON.stringify (this.cards), 
         function () {
-            exec ('git --git-dir=../decks/.git ' +
-                '--work-tree=../decks/ commit -m "new deck version" ' +
+            exec ('git --git-dir='+gitConfig.gitDir+' ' +
+                '--work-tree='+gitConfig.workTree+' commit -m "new deck version" ' +
                 that.name, 
                 function () {
                     console.log ('Deck saved');

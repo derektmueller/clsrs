@@ -31,21 +31,22 @@ Import.prototype.call = function (importFileName, callback) {
         return;
     }
 
-
     var fileName = importFileName;
     fs.readFile (fileName, function (err, data) {
         if (err) {
             auxlib.log (err);
             console.log ('Import file could not be read');
         } else {
-            var lines = data.toString ().split (/\n/).filter (
-                function (a) {
-                    return !a.match (/\n|a|q|(^$)/);
-                });
+            var lines = data.toString ().split (
+                /(?:^|\n)(?:a|q)(?:\n|$)/);
+
+            lines.shift ();
+            //console.log (lines);
+
             for (var i = 0; i < lines.length - 1; i += 2) {
                 deck.addCard (lines[i], lines[i + 1]); 
             }
-            console.log ('cards added');
+            console.log (lines.length + ' cards added');
         }
         Command.prototype.call.call (this, callback);
     });

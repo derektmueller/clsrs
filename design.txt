@@ -8,6 +8,10 @@ decks stored as JSON
 * ideas 
 ***********************************************************************/
 
+unit testing
+up button should move through command history
+when cycling through a deck, randomize card order.
+
 prevent creation of duplicate cards (on import and with card creation command)
 
 vimscipt idea:

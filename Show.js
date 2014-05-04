@@ -3,6 +3,7 @@
 var auxlib = require ('./auxlib');
 var Command = require ('./Command');
 var exec = require ('child_process').exec;
+var gitConfig = require ('./gitConfig');
 
 var Show = (function () {
 
@@ -21,9 +22,10 @@ Show.prototype = Object.create (Command.prototype);
  * Call the command
  */
 Show.prototype.call = function (callback) {
-    console.log ('call');
+    //console.log ('call');
     var that = this;  
-    exec ('ls ../decks | perl -ne \'s/\\.json//; print $_;\'', 
+    //exec ('ls ../decks | perl -ne \'s/\\.json//; print $_;\'', 
+    exec ('ls ' + gitConfig.workTree + ' | perl -ne \'s/\\.json//; print $_;\'', 
         function (err, stdout, stderr) {
 
         console.log (stdout);
