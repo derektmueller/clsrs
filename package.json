@@ -1,0 +1,25 @@
+{
+  "name": "clsrs",
+  "version": "0.0.0",
+  "description": "A rudimentary interactive command-line space repetition flashcard ",
+  "main": "app.js",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {
+    "prompt": "~0.2.12"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://dtmuelle@bitbucket.org/dtmuelle/clsrs.git"
+  },
+  "keywords": [
+    "srs",
+    "command-line",
+    "space",
+    "repetition",
+    "software"
+  ],
+  "author": "Derek Mueller"
+}
